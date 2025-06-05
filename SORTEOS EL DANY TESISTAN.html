@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SORTEOS EL DANY TESISTÁN - ¡Tu Suerte te Espera!</title>
+    <!-- Favicon -->
+    <link rel="icon" href="https://placehold.co/32x32/FFD700/000000?text=S" type="image/x-icon">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter for modern look, similar to specified custom font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8; /* Light background for contrast */
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F59E0B; /* Tailwind amber-500 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #EA580C; /* Tailwind orange-600 */
+        }
+
+        /* Hero section background gradient */
+        .hero-bg {
+            background: linear-gradient(to right, #F59E0B, #FBBF24); /* Amber to Yellow-400 */
+        }
+        /* Button hover effects */
+        .btn-primary {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #EA580C; /* Deeper orange */
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            transition: background-color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #FEF3C7; /* Light yellow background */
+            border-color: #D97706; /* Deeper amber border */
+            transform: translateY(-2px);
+        }
+        /* Floating WhatsApp button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25D366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Custom animation for ticket selection machine */
+        @keyframes slide-in-top {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .ticket-animation {
+            animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        /* Modal styling */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/5213312345678" class="whatsapp-float" target="_blank" aria-label="Contactar por WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L.05 14.248l3.054-.919a7.86 7.86 0 0 0 3.793.999h.001c4.368 0 7.926-3.558 7.93-7.93A7.852 7.852 0 0 0 13.601 2.326zM7.994 14.521c-1.168 0-2.308-.34-3.295-.959l-2.656.795.885-2.731a6.827 6.827 0 0 1-1.605-4.577c0-3.76 3.037-6.797 6.794-6.797s6.794 3.037 6.794 6.797c0 3.759-3.037 6.796-6.794 6.796z"/><path d="M11.666 9.873c-.15-.075-.873-.433-.96-.465s-.15-.075-.219-.101c-.069-.026-.188-.075-.295-.075s-.276.015-.425.045c-.15.03-.388.15-.475.24s-.188.219-.28.326c-.092.107-.184.114-.344.075s-.687-.253-.943-.464c-.256-.211-.856-.84-.76-1.459.096-.619.48-1.025.568-1.132.088-.107.177-.18.237-.3.06-.12.03-.225-.015-.316c-.045-.091-.42-.995-.578-1.341-.157-.346-.316-.289-.425-.289s-.23.015-.34.015c-.11.015-.17.075-.258.15c-.088.075-.33.326-.49.484s-.17.18-.518.528c-.347.347-.706.777-1.002.998-.295.221-.497.295-.93.473-.433.18-.85.3-.85.748s.555 1.085.63 1.16c.075.075 1.077 1.635 2.607 2.222.148.056.3.097.45.128.15.03.3.015.45-.045.15-.06.75-.308.87-.433.12-.125.15-.225.105-.315z"/>
+        </svg>
+    </a>
+
+    <!-- Header Section -->
+    <header class="bg-gray-800 text-white p-4 shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto flex justify-between items-center flex-wrap">
+            <a href="#inicio" class="text-2xl font-bold text-yellow-400">
+                SORTEOS EL DANY <span class="text-orange-500">TESISTÁN</span>
+            </a>
+            <div class="block lg:hidden">
+                <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-yellow-200 border-yellow-400 hover:text-white hover:border-white">
+                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v15z"/></svg>
+                </button>
+            </div>
+            <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden" id="nav-content">
+                <ul class="text-sm lg:flex-grow lg:flex lg:justify-end">
+                    <li><a href="#inicio" class="block mt-4 lg:inline-block lg:mt-0 text-yellow-200 hover:text-white mr-4 p-2 rounded-md transition duration-300">Inicio</a></li>
+                    <li><a href="#faq" class="block mt-4 lg:inline-block lg:mt-0 text-yellow-200 hover:text-white mr-4 p-2 rounded-md transition duration-300">Preguntas Frecuentes</a></li>
+                    <li><a href="#verificador" class="block mt-4 lg:inline-block lg:mt-0 text-yellow-200 hover:text-white mr-4 p-2 rounded-md transition duration-300">Verificador de Boletos</a></li>
+                    <li><a href="#pagos" class="block mt-4 lg:inline-block lg:mt-0 text-yellow-200 hover:text-white mr-4 p-2 rounded-md transition duration-300">Métodos de Pago</a></li>
+                    <li><a href="#comprar" class="block mt-4 lg:inline-block lg:mt-0 text-white bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-md transition duration-300 btn-primary shadow-md">Comprar Boletos</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Inicio Section -->
+        <section id="inicio" class="hero-bg text-white py-16 md:py-24 text-center rounded-b-lg shadow-xl">
+            <div class="container mx-auto px-4">
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
+                    ¡Tu Próximo Gran Premio Comienza Aquí!
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">
+                    Únete a SORTEOS EL DANY TESISTÁN y transforma tu suerte. <br>
+                    ¡Boletos electrónicos seguros y premios increíbles a tu alcance!
+                </p>
+                <a href="#comprar" class="inline-block bg-white text-orange-600 font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-gray-100 transition duration-300 btn-primary">
+                    Compra tu boleto ahora
+                    <span class="ml-2">&#x27A4;</span> <!-- Right arrow -->
+                </a>
+
+                <!-- Current Raffle Display -->
+                <div class="mt-16 bg-white bg-opacity-20 backdrop-filter backdrop-blur-sm p-6 md:p-8 rounded-lg shadow-lg max-w-2xl mx-auto border border-white border-opacity-30">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">Sorteo Activo Actual</h2>
+                    <p class="text-lg md:text-xl font-semibold mb-2">¡Gana un Auto Nuevo o $200,000 MXN en Efectivo!</p>
+                    <p class="text-base md:text-lg mb-4">No dejes pasar esta oportunidad única.</p>
+                    <div class="text-3xl md:text-5xl font-extrabold text-yellow-200" id="countdown">
+                        Cargando contador...
+                    </div>
+                    <p class="mt-4 text-sm md:text-base">Fecha y hora del sorteo: <span id="raffle-date"></span></p>
+                </div>
+
+                <!-- Optional: Testimonials/Winner Stories -->
+                <!--
+                <div class="mt-16 grid md:grid-cols-2 gap-8">
+                    <div class="bg-white bg-opacity-20 p-6 rounded-lg text-left">
+                        <p class="text-lg font-semibold mb-2">"¡No lo podía creer! Gané el último sorteo. ¡Totalmente recomendado!"</p>
+                        <p class="text-sm">- Juan Pérez, Ganador de Tesistán</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 p-6 rounded-lg text-left">
+                        <p class="text-lg font-semibold mb-2">"El proceso de compra es muy fácil y seguro. ¡Ya soy cliente frecuente!"</p>
+                        <p class="text-sm">- María López, Compradora Feliz</p>
+                    </div>
+                </div>
+                -->
+            </div>
+        </section>
+
+        <!-- Sección de Preguntas Frecuentes (FAQ) -->
+        <section id="faq" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Preguntas Frecuentes</h2>
+
+                <div class="max-w-3xl mx-auto">
+                    <!-- FAQ Item 1 -->
+                    <div class="mb-4 bg-white p-6 rounded-lg shadow-md">
+                        <button class="flex justify-between items-center w-full text-left font-semibold text-lg text-orange-600 focus:outline-none" onclick="toggleAccordion('faq1')">
+                            <span>¿Cómo funciona el sorteo?</span>
+                            <span id="icon-faq1" class="text-2xl">+</span>
+                        </button>
+                        <div id="faq1" class="mt-4 text-gray-700 hidden transition-all duration-300 ease-in-out">
+                            <p>Nuestros sorteos se basan en la Lotería Nacional Mexicana. Cada boleto electrónico que compras tiene un número único. El ganador se determina con las últimas cifras del premio mayor de un sorteo específico de la Lotería Nacional (se especifica en cada sorteo). Es transparente y seguro.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="mb-4 bg-white p-6 rounded-lg shadow-md">
+                        <button class="flex justify-between items-center w-full text-left font-semibold text-lg text-orange-600 focus:outline-none" onclick="toggleAccordion('faq2')">
+                            <span>¿Qué métodos de pago aceptan?</span>
+                            <span id="icon-faq2" class="text-2xl">+</span>
+                        </button>
+                        <div id="faq2" class="mt-4 text-gray-700 hidden">
+                            <p>Aceptamos diversas opciones de pago para tu comodidad: transferencia bancaria (SPEI), depósitos en OXXO, PayPal y tarjetas de débito/crédito a través de plataformas seguras como Mercado Pago o Stripe.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="mb-4 bg-white p-6 rounded-lg shadow-md">
+                        <button class="flex justify-between items-center w-full text-left font-semibold text-lg text-orange-600 focus:outline-none" onclick="toggleAccordion('faq3')">
+                            <span>¿Cómo se entrega el premio?</span>
+                            <span id="icon-faq3" class="text-2xl">+</span>
+                        </button>
+                        <div id="faq3" class="mt-4 text-gray-700 hidden">
+                            <p>Una vez verificado el ganador, nos pondremos en contacto contigo a la brevedad. Los premios en efectivo se transfieren directamente a tu cuenta bancaria y los premios físicos se coordinan para entrega personal o envío asegurado, dependiendo de tu ubicación.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="mb-4 bg-white p-6 rounded-lg shadow-md">
+                        <button class="flex justify-between items-center w-full text-left font-semibold text-lg text-orange-600 focus:outline-none" onclick="toggleAccordion('faq4')">
+                            <span>¿Puedo comprar desde cualquier ciudad?</span>
+                            <span id="icon-faq4" class="text-2xl">+</span>
+                        </button>
+                        <div id="faq4" class="mt-4 text-gray-700 hidden">
+                            <p>¡Sí! Puedes comprar boletos desde cualquier ciudad de México. Nuestros boletos son electrónicos y el proceso de compra es 100% online. Para la entrega de premios físicos, coordinaremos la mejor opción contigo.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 5 -->
+                    <div class="mb-4 bg-white p-6 rounded-lg shadow-md">
+                        <button class="flex justify-between items-center w-full text-left font-semibold text-lg text-orange-600 focus:outline-none" onclick="toggleAccordion('faq5')">
+                            <span>Seguridad y legalidad del sorteo.</span>
+                            <span id="icon-faq5" class="text-2xl">+</span>
+                        </button>
+                        <div id="faq5" class="mt-4 text-gray-700 hidden">
+                            <p>En SORTEOS EL DANY TESISTÁN, tu seguridad es nuestra prioridad. Operamos bajo las leyes mexicanas y nos basamos en los resultados oficiales de la Lotería Nacional, garantizando total transparencia y legalidad en cada sorteo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Verificador de Boletos -->
+        <section id="verificador" class="py-16 bg-yellow-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Verificador de Boletos</h2>
+                <div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-xl border-t-4 border-orange-500">
+                    <p class="text-gray-700 mb-6 text-center">Introduce el número o números de tus boletos (separados por comas) para verificar su estado.</p>
+                    <div class="mb-6">
+                        <label for="ticketNumber" class="block text-gray-700 text-sm font-bold mb-2">Número(s) de Boleto:</label>
+                        <input type="text" id="ticketNumber" placeholder="Ej: 12345, 67890" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition duration-300">
+                    </div>
+                    <button id="verifyTicketBtn" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline btn-primary shadow-md">
+                        Verificar Boleto(s)
+                    </button>
+
+                    <div id="verificationResult" class="mt-8 p-4 bg-gray-100 border border-gray-200 rounded-lg hidden">
+                        <!-- Results will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Métodos de Pago -->
+        <section id="pagos" class="py-16 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Métodos de Pago</h2>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Transferencia Bancaria / SPEI -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-orange-500 transform transition duration-300 hover:scale-105">
+                        <h3 class="text-2xl font-bold text-orange-600 mb-4 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bank2 mr-3" viewBox="0 0 16 16">
+                                <path d="M8.277.084a.5.5 0 0 0-.554 0L.676 6.724a.5.5 0 0 0 .278.958l.24.048c.683.136 1.406.24 2.131.314A16.033 16.033 0 0 0 8 7.995c.296 0 .591 0 .886-.038a16.033 16.033 0 0 0 4.12-.614l.24-.048a.5.5 0 0 0 .278-.958L8.277.084ZM2.257 8.5H13.743V14H2.257V8.5Z"/>
+                                <path d="M12.43 8.248c1.3-.174 2.503-.38 3.482-.598A.5.5 0 0 0 16 7.02l-7.278-6.685a.5.5 0 0 0-.554 0L0 7.02a.5.5 0 0 0 .088.13c.98.218 2.182.424 3.482.598C4.545 8.358 6.275 8.5 8 8.5c1.725 0 3.455-.142 4.43-.252Z"/>
+                            </svg>
+                            Transferencia Bancaria (SPEI)
+                        </h3>
+                        <p class="text-gray-700 mb-4">La forma más rápida y segura para grandes montos.</p>
+                        <ol class="list-decimal list-inside text-gray-600 text-sm space-y-2">
+                            <li>Realiza una transferencia a nuestra cuenta (datos proporcionados al finalizar tu compra).</li>
+                            <li>Envía el comprobante de pago por WhatsApp o correo electrónico.</li>
+                            <li>Recibirás tus boletos electrónicos confirmados en minutos.</li>
+                        </ol>
+                    </div>
+
+                    <!-- Depósito en OXXO -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-orange-500 transform transition duration-300 hover:scale-105">
+                        <h3 class="text-2xl font-bold text-orange-600 mb-4 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cash-stack mr-3" viewBox="0 0 16 16">
+                                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 0a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zM1.5 5a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1z"/>
+                                <path d="M14 3H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1 8H3V5h10v6z"/>
+                            </svg>
+                            Depósito en OXXO
+                        </h3>
+                        <p class="text-gray-700 mb-4">Práctico y accesible en cualquier sucursal.</p>
+                        <ol class="list-decimal list-inside text-gray-600 text-sm space-y-2">
+                            <li>Genera tu referencia de pago al finalizar tu compra.</li>
+                            <li>Acude a cualquier tienda OXXO y realiza tu depósito.</li>
+                            <li>Envía una foto de tu ticket de pago por WhatsApp o correo.</li>
+                            <li>Recibirás tus boletos confirmados.</li>
+                        </ol>
+                    </div>
+
+                    <!-- PayPal / Tarjeta (Mercado Pago/Stripe) -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-orange-500 transform transition duration-300 hover:scale-105">
+                        <h3 class="text-2xl font-bold text-orange-600 mb-4 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-credit-card-2-front mr-3" viewBox="0 0 16 16">
+                                <path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM2 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM14 12V8H2v4z"/>
+                                <path d="M11 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5z"/>
+                                <circle cx="4.5" cy="10.5" r=".5"/>
+                                <path d="M5.5 10.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
+                            </svg>
+                            Tarjetas de Crédito/Débito (Vía Mercado Pago/Stripe/PayPal)
+                        </h3>
+                        <p class="text-gray-700 mb-4">Pago instantáneo y seguro con tu tarjeta favorita.</p>
+                        <ol class="list-decimal list-inside text-gray-600 text-sm space-y-2">
+                            <li>Selecciona esta opción al momento de pagar.</li>
+                            <li>Serás redirigido a la plataforma segura de Mercado Pago, Stripe o PayPal.</li>
+                            <li>Ingresa los datos de tu tarjeta y confirma la compra.</li>
+                            <li>Tus boletos se generarán y enviarán automáticamente.</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <p class="text-gray-600 text-lg">¿Tienes dudas sobre los métodos de pago? <a href="https://wa.me/5213312345678" target="_blank" class="text-orange-600 hover:underline font-semibold">¡Contáctanos por WhatsApp!</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Comprar Boletos -->
+        <section id="comprar" class="py-16 bg-yellow-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">¡Compra tus Boletos Aquí!</h2>
+                <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-xl border-t-4 border-orange-500">
+                    <p class="text-gray-700 mb-6 text-center text-lg">Selecciona la cantidad de boletos que deseas comprar. ¡Mientras más compres, más oportunidades tienes de ganar!</p>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <button class="ticket-qty-btn bg-orange-100 text-orange-700 font-bold py-3 px-4 rounded-lg shadow-md hover:bg-orange-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400" data-qty="1">1 Boleto</button>
+                        <button class="ticket-qty-btn bg-orange-100 text-orange-700 font-bold py-3 px-4 rounded-lg shadow-md hover:bg-orange-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400" data-qty="2">2 Boletos</button>
+                        <button class="ticket-qty-btn bg-orange-100 text-orange-700 font-bold py-3 px-4 rounded-lg shadow-md hover:bg-orange-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400" data-qty="5">5 Boletos</button>
+                        <button class="ticket-qty-btn bg-orange-100 text-orange-700 font-bold py-3 px-4 rounded-lg shadow-md hover:bg-orange-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400" data-qty="10">10 Boletos</button>
+                    </div>
+
+                    <div class="flex items-center mb-6">
+                        <label for="customQuantity" class="mr-4 text-gray-700 font-semibold">Cantidad Personalizada:</label>
+                        <input type="number" id="customQuantity" min="1" value="1" class="shadow appearance-none border rounded-lg py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition duration-300 w-24">
+                        <button id="setCustomQuantity" class="ml-4 bg-orange-500 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-orange-600 transition duration-300 btn-primary">Establecer</button>
+                    </div>
+
+                    <div class="mb-8 p-6 bg-gray-50 border border-gray-200 rounded-lg text-center">
+                        <p class="text-xl font-semibold text-gray-800">Boletos Seleccionados:</p>
+                        <div id="selectedTicketsDisplay" class="mt-4 flex flex-wrap justify-center gap-2">
+                            <!-- Selected tickets will be displayed here dynamically -->
+                        </div>
+                        <p class="text-3xl font-bold mt-6 text-orange-600">Total: $<span id="totalPrice">0.00</span> MXN</p>
+                    </div>
+
+                    <button id="proceedToPurchase" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-4 rounded-lg text-xl shadow-lg btn-primary">
+                        Comprar Boletos Ahora
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-8 rounded-t-lg shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                <a href="#inicio" class="text-xl font-bold text-yellow-400 mb-4 md:mb-0">
+                    SORTEOS EL DANY <span class="text-orange-500">TESISTÁN</span>
+                </a>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.011 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.5V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                            <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.269.088 3.85.048 4.703.01 5.556 0 5.829 0 8s.01 2.444.048 3.297c.04.853.174 1.434.372 1.943.205.526.478.972.923 1.417.444.445.89.719 1.417.923.509.198 1.09.332 1.943.372C5.556 15.99 5.829 16 8 16s2.444-.01 3.297-.048c.853-.04 1.434-.174 1.943-.372.526-.205.972-.478 1.417-.923.445-.444.719-.89.923-1.417.198-.509.332-1.09.372-1.943.038-.853.048-1.126.048-3.297s-.01-2.444-.048-3.297c-.04-.853-.174-1.434-.372-1.943A3.917 3.917 0 0 0 13.24 2.76c-.205-.509-.478-.972-.923-1.417A3.927 3.927 0 0 0 10.24 0.42C9.731.222 9.15.088 8.297.048S8.029 0 8 0zm0 2.16a5.842 5.842 0 1 0 0 11.684A5.842 5.842 0 0 0 8 2.16zm-.763 1.425a1.442 1.442 0 0 1 1.442 1.442A1.442 1.442 0 0 1 7.237 3.585zm0 2.884a2.884 2.884 0 1 0 0 5.768A2.884 2.884 0 0 0 7.237 6.469zM12 4.5a.5.5 0 1 1 0 1a.5.5 0 0 1 0-1z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300" aria-label="TikTok">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-tiktok" viewBox="0 0 16 16">
+                            <path d="M9 0H6.5c-.532 0-.978.432-1 .968v4.464l-2.4-1.2A.5.5 0 0 0 2.5 4v2.4a.5.5 0 0 0 .74.451L6.5 6.442V10.5h.008c.005.152.072.302.207.411.135.109.32.166.505.166.452 0 .825-.373.825-.825a.825.825 0 0 0-.825-.825H6.5v-3.5c-.015-.078-.008-.155 0-.233.007-.078.021-.155.041-.23.02-.075.046-.149.079-.22.033-.07.072-.136.118-.198.046-.062.10-.12.16-.174.06-.054.128-.103.203-.147.075-.044.156-.08.243-.106.088-.026.183-.043.277-.043h2.384c.642 0 1.157-.514 1.157-1.157S10.642 0 10 0zm-.5 1.5c.29 0 .525.235.525.525s-.235.525-.525.525h-1.525v-.525c0-.29.235-.525.525-.525H8.5z"/>
+                            <path d="M12.5 7.5c-.532 0-.978.432-1 .968v4.464l-2.4-1.2A.5.5 0 0 0 7.5 10v2.4a.5.5 0 0 0 .74.451L11.5 11.442V15.5h.008c.005.152.072.302.207.411.135.109.32.166.505.166.452 0 .825-.373.825-.825a.825.825 0 0 0-.825-.825H11.5v-3.5c-.015-.078-.008-.155 0-.233.007-.078.021-.155.041-.23.02-.075.046-.149.079-.22.033-.07.072-.136.118-.198.046-.062.10-.12.16-.174.06-.054.128-.103.203-.147.075-.044.156-.08.243-.106.088-.026.183-.043.277-.043h2.384c.642 0 1.157-.514 1.157-1.157S15.642 7.5 15 7.5zm-.5 1.5c.29 0 .525.235.525.525s-.235.525-.525.525h-1.525v-.525c0-.29.235-.525.525-.525H12.5z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2024 SORTEOS EL DANY TESISTÁN. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Global Modal Placeholder -->
+    <div id="globalModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000] hidden modal-overlay">
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full mx-4 text-center">
+            <h3 id="modalTitle" class="text-xl font-bold mb-4 text-gray-800"></h3>
+            <p id="modalMessage" class="text-gray-700 mb-6"></p>
+            <button id="modalCloseBtn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-lg btn-primary">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for website functionality
+
+        // --- Global Modal Functions ---
+        const globalModal = document.getElementById('globalModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+        function showModal(title, message) {
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            globalModal.classList.remove('hidden');
+        }
+
+        modalCloseBtn.addEventListener('click', () => {
+            globalModal.classList.add('hidden');
+        });
+
+        // --- Navigation Toggle for Mobile ---
+        document.getElementById('nav-toggle').addEventListener('click', function() {
+            let navContent = document.getElementById('nav-content');
+            navContent.classList.toggle('hidden');
+        });
+
+        // --- Countdown Timer for Raffle ---
+        // Set the date we're counting down to (Example: July 20, 2025, 20:00:00 CST - Adjust as needed)
+        const raffleDateTime = new Date("Jul 20, 2025 20:00:00").getTime();
+        document.getElementById('raffle-date').textContent = new Date(raffleDateTime).toLocaleString('es-MX', {
+            year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false
+        });
+
+        const countdownFunction = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = raffleDateTime - now;
+
+            // Calculate times for days, hours, minutes and seconds
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="countdown"
+            document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            // If the countdown is finished, write some text
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("countdown").innerHTML = "¡SORTEO FINALIZADO!";
+                document.getElementById("raffle-date").textContent = "Consulta la lista de ganadores.";
+            }
+        }, 1000);
+
+        // --- FAQ Accordion ---
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.textContent = '-';
+            } else {
+                content.classList.add('hidden');
+                icon.textContent = '+';
+            }
+        }
+
+        // --- Ticket Verifier Logic (Client-side Simulation) ---
+        const verifyTicketBtn = document.getElementById('verifyTicketBtn');
+        const ticketNumberInput = document.getElementById('ticketNumber');
+        const verificationResultDiv = document.getElementById('verificationResult');
+
+        // Simulated valid tickets (replace with real backend integration for production)
+        const validTickets = {
+            "12345": { status: "GANADOR", prize: "Auto Nuevo 2024" },
+            "67890": { status: "NO GANADOR" },
+            "11223": { status: "GANADOR", prize: "$50,000 MXN en Efectivo" },
+            "98765": { status: "NO GANADOR" },
+            "54321": { status: "NO GANADOR" }
+        };
+
+        verifyTicketBtn.addEventListener('click', () => {
+            const inputNumbers = ticketNumberInput.value.split(',').map(num => num.trim()).filter(num => num !== '');
+            let resultsHtml = '<ul>';
+            let foundResults = false;
+
+            if (inputNumbers.length === 0) {
+                showModal('Error de Verificación', 'Por favor, introduce al menos un número de boleto.');
+                verificationResultDiv.classList.add('hidden');
+                return;
+            }
+
+            inputNumbers.forEach(number => {
+                const ticketInfo = validTickets[number];
+                if (ticketInfo) {
+                    foundResults = true;
+                    if (ticketInfo.status === "GANADOR") {
+                        resultsHtml += `<li class="text-green-700 font-bold mb-2">Boleto ${number}: ¡FELICIDADES! Eres ${ticketInfo.status} de ${ticketInfo.prize}.</li>`;
+                    } else {
+                        resultsHtml += `<li class="text-blue-700 mb-2">Boleto ${number}: ${ticketInfo.status}. ¡Sigue participando!</li>`;
+                    }
+                } else {
+                    foundResults = true;
+                    resultsHtml += `<li class="text-red-700 mb-2">Boleto ${number}: Inválido o no encontrado. Por favor, verifica el número.</li>`;
+                }
+            });
+
+            resultsHtml += '</ul>';
+
+            if (foundResults) {
+                verificationResultDiv.innerHTML = resultsHtml;
+                verificationResultDiv.classList.remove('hidden');
+                verificationResultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                showModal('Sin Resultados', 'No se encontraron resultados para los boletos ingresados.');
+                verificationResultDiv.classList.add('hidden');
+            }
+        });
+
+        // --- Buy Tickets Logic ---
+        const ticketQtyButtons = document.querySelectorAll('.ticket-qty-btn');
+        const customQuantityInput = document.getElementById('customQuantity');
+        const setCustomQuantityBtn = document.getElementById('setCustomQuantity');
+        const selectedTicketsDisplay = document.getElementById('selectedTicketsDisplay');
+        const totalPriceDisplay = document.getElementById('totalPrice');
+        const proceedToPurchaseBtn = document.getElementById('proceedToPurchase');
+
+        const ticketPrice = 50; // Example price per ticket
+        let currentTicketQuantity = 0;
+
+        function updateTicketSelection(quantity) {
+            currentTicketQuantity = quantity;
+            customQuantityInput.value = quantity; // Update custom quantity input
+
+            selectedTicketsDisplay.innerHTML = ''; // Clear previous tickets
+            for (let i = 0; i < quantity; i++) {
+                // Generate a random 5-digit ticket number for display simulation
+                const simulatedTicketNumber = Math.floor(10000 + Math.random() * 90000);
+                const ticketElement = document.createElement('span');
+                ticketElement.textContent = simulatedTicketNumber;
+                ticketElement.className = 'bg-yellow-200 text-yellow-800 text-sm font-semibold px-3 py-1 rounded-full ticket-animation shadow-sm';
+                selectedTicketsDisplay.appendChild(ticketElement);
+            }
+            totalPriceDisplay.textContent = (quantity * ticketPrice).toFixed(2);
+        }
+
+        // Event listeners for quantity buttons
+        ticketQtyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const qty = parseInt(button.dataset.qty);
+                updateTicketSelection(qty);
+            });
+        });
+
+        // Event listener for custom quantity button
+        setCustomQuantityBtn.addEventListener('click', () => {
+            const qty = parseInt(customQuantityInput.value);
+            if (qty > 0) {
+                updateTicketSelection(qty);
+            } else {
+                showModal('Error de Cantidad', 'Por favor, introduce una cantidad válida (mayor a 0).');
+            }
+        });
+
+        // Initial update when page loads (e.g., set to 1 ticket by default)
+        updateTicketSelection(1);
+
+        // Simulate purchase process
+        proceedToPurchaseBtn.addEventListener('click', () => {
+            if (currentTicketQuantity > 0) {
+                const total = (currentTicketQuantity * ticketPrice).toFixed(2);
+                showModal(
+                    '¡Compra Exitosa!',
+                    `Has seleccionado ${currentTicketQuantity} boleto(s) por un total de $${total} MXN. Te redirigiremos a la pasarela de pago.`
+                );
+                // In a real application, you would now redirect to a payment gateway
+                // window.location.href = "your_payment_gateway_url";
+            } else {
+                showModal('Error de Compra', 'Por favor, selecciona al menos un boleto para comprar.');
+            }
+        });
+
+        // --- Pop-up / Banner Suggestion (Simple example) ---
+        // This will show a pop-up after a short delay
+        window.onload = () => {
+            setTimeout(() => {
+                showModal(
+                    '¡Promoción Especial!',
+                    '🔥 ¡Compra 5 boletos y recibe 1 GRATIS! No te pierdas esta oportunidad. 🔥'
+                );
+            }, 3000); // Shows pop-up after 3 seconds
+        };
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Close mobile menu if open after click
+                if (window.innerWidth < 1024) {
+                    document.getElementById('nav-content').classList.add('hidden');
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
